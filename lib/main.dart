@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/dashboard_screen.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(const LuxeBeautyApp());
@@ -19,7 +20,19 @@ class LuxeBeautyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE96486)),
         fontFamily: 'Georgia',
       ),
-      home: const DashboardScreen(),
+      home: Builder(
+        builder: (context) => LoginScreen(
+          onSignIn: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const DashboardScreen()),
+          ),
+          onCreateAccount: () => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Create account coming soon')),
+          ),
+          onForgotPassword: () => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Password recovery coming soon')),
+          ),
+        ),
+      ),
     );
   }
 }
